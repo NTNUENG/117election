@@ -1,0 +1,192 @@
+{
+    "main": {
+        "class": "",
+        "children": [
+            {
+                "tag": "div",
+                "class": "container",
+                "children": [
+                    {
+                        "tag": "section",
+                        "class": "mar-t-3 mar-b-3 login",
+                        "children": [
+                            {
+                                "tag": "h1",
+                                "class": "text-centre",
+                                "style": "font-size: 2em;",
+                                "text": "login_title"
+                            },
+                            {
+                                "tag": "div",
+                                "class": "panel",
+                                "children": [
+                                    {
+                                        "tag": "input",
+                                        "type": "text",
+                                        "placeholder": "login_placeholder_student_id",
+                                        "id": "studentId",
+                                        "minlength": "9",
+                                        "maxlength": "9",
+                                        "required": true
+                                    },
+                                    {
+                                        "tag": "div",
+                                        "class": "mar-b-05"
+                                    },
+                                    {
+                                        "tag": "input",
+                                        "type": "password",
+                                        "placeholder": "login_placeholder_password",
+                                        "id": "password",
+                                        "minlength": "16",
+                                        "maxlength": "16",
+                                        "required": true
+                                    },
+                                    {
+                                        "tag": "label",
+                                        "class": "item-width",
+                                        "style": "font-size: 85%;",
+                                        "children": [
+                                            {
+                                                "tag": "label",
+                                                "class": "switch-holder mar-l-05",
+                                                "children": [
+                                                    {
+                                                        "tag": "label",
+                                                        "class": "switch",
+                                                        "children": [
+                                                            {
+                                                                "tag": "input",
+                                                                "type": "checkbox",
+                                                                "onclick": "showPassword()"
+                                                            },
+                                                            {
+                                                                "tag": "span",
+                                                                "class": "slider"
+                                                            }
+                                                        ]
+                                                    },
+                                                    {
+                                                        "tag": "h3",
+                                                        "class": "switch-name",
+                                                        "text": "show_password"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "tag": "div",
+                                        "class": "mar-b-05"
+                                    },
+                                    {
+                                        "tag": "button",
+                                        "class": "btn btn-fill btn-success",
+                                        "style": "width: 100%;",
+                                        "id": "loginButton",
+                                        "text": "login_button"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "tag": "div",
+                        "class": "alert alert-info",
+                        "children": [
+                            {
+                                "tag": "div",
+                                "class": "alert-icon"
+                            },
+                            {
+                                "tag": "p",
+                                "class": "alert-message",
+                                "text": "alert_info",
+                                "children": [
+                                    {
+                                        "tag": "span",
+                                        "class": "hanLat hl-l",
+                                        "text": "alert_info_date"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "tag": "div",
+                        "class": "alert alert-warning",
+                        "children": [
+                            {
+                                "tag": "div",
+                                "class": "alert-icon"
+                            },
+                            {
+                                "tag": "p",
+                                "class": "alert-message",
+                                "children": [
+                                    {
+                                        "text": "alert_warning_prefix"
+                                    },
+                                    {
+                                        "tag": "span",
+                                        "class": "hanLat",
+                                        "text": "alert_warning_count"
+                                    },
+                                    {
+                                        "text": "alert_warning_suffix"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "tag": "div",
+                        "class": "alert alert-warning",
+                        "children": [
+                            {
+                                "tag": "div",
+                                "class": "alert-icon"
+                            },
+                            {
+                                "tag": "p",
+                                "class": "alert-message",
+                                "children": [
+                                    {
+                                        "text": "alert_slow"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "tag": "hr",
+                        "class": "mar-t-2 mar-b-2"
+                    },
+                    {
+                        "tag": "p",
+                        "class": "text-centre",
+                        "children": [
+                            {
+                                "tag": "button",
+                                "class": "btn btn-primary btn-fill text-bold",
+                                "disabled": true,
+                                "text": "lang_zh",
+                                "data-lang": "zh"
+                            },
+                            {
+                                "tag": "span",
+                                "style": "padding-left: 1em;margin-left: 1em;"
+                            },
+                            {
+                                "tag": "button",
+                                "class": "btn",
+                                "text": "lang_en",
+                                "data-lang": "en"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

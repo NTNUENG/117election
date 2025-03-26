@@ -1,0 +1,15 @@
+{
+    "login_title": "Identity Verification",
+    "login_placeholder_student_id": "Student ID...",
+    "login_placeholder_password": "Password...",
+    "show_password": "Show Password",
+    "login_button": "Login",
+    "alert_info": "System available from",
+    "alert_info_date": "2025/3/26 12:00 to 2025/4/12 23:59.",
+    "alert_warning_prefix": "Each person may only vote ",
+    "alert_warning_count": "",
+    "alert_warning_suffix": "once. Submissions cannot be changed.",
+    "alert_slow": "Please do not exploit network delays to cast multiple votes in quick succession.",
+    "lang_zh": "正體中文",
+    "lang_en": "English"
+}

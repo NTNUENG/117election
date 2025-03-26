@@ -1,0 +1,6 @@
+{
+    "wrong_password": "Password Incorrect",
+    "wrong_id": "Invalid Student ID",
+    "has_responded": "Vote Already Casted!",
+    "login_success": "Logging You In Now..."
+}

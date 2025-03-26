@@ -1,0 +1,4 @@
+*.py
+.DS_Store
+user_ids.json
+user_passwords.json

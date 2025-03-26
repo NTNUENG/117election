@@ -1,0 +1,15 @@
+{
+    "login_title": "身分驗證",
+    "login_placeholder_student_id": "請輸入學號⋯⋯",
+    "login_placeholder_password": "請輸入密碼⋯⋯",
+    "show_password": "顯示密碼",
+    "login_button": "登入",
+    "alert_info": "系統開放時間為",
+    "alert_info_date": "114/3/26 12:00 — 114/4/12 23:59。",
+    "alert_warning_prefix": "每人僅能投票",
+    "alert_warning_count": "1",
+    "alert_warning_suffix": "次，且送出後不得再更改。",
+    "alert_slow": "請勿利用網路延遲以惡意快速連續操作。",
+    "lang_zh": "正體中文",
+    "lang_en": "English"
+}
