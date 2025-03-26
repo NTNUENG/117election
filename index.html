@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>前臺｜國立臺灣師範大學英語學系 117 級會長改選投票系統</title>
+    <meta name="description" content="國立臺灣師範大學英語學系 117 級會長改選投票系統">
     <link rel="stylesheet" crossorigin="anonymous" href="https://cdn.jsdelivr.net/gh/Zutek3134/zutek3134.github.io@main/stylesheets/style.css" />
     <link rel="stylesheet" crossorigin="anonymous" href="https://cdn.jsdelivr.net/gh/Zutek3134/zutek3134.github.io@main/stylesheets/mandarinSupport.css" />
     <link rel="stylesheet" crossorigin="anonymous" href="https://cdn.jsdelivr.net/gh/Zutek3134/zutek3134.github.io@main/js/snackbar/stylesheet.css" />
@@ -13,11 +14,11 @@
         :root {
             --bg: rgb(253, 248, 246);
             --bg-rgb: 253, 248, 246;
-            --bg-dark: #ebe7e5;
+            --bg-dark: #e8e2d5;
             --color: #1c1b1a;
             --title-color: #49473f;
-            --card-bg: rgb(241, 237, 235);
-            --card-bg-rgb: 241, 237, 235;
+            --card-bg: #ebe7e5;
+            --card-bg-rgb: 235, 231, 229;
             --border: #7a776e;
             --border-half: #7a776e80;
             --primary: #6c5e10;
@@ -25,7 +26,7 @@
             --teritary: #426650;
             /*  */
             --nav-height: 2em;
-            --footer-height: 653px;
+            --footer-height: 600px;
         }
 
         fieldset {
@@ -36,10 +37,20 @@
 
         main {
             min-height: 100dvh;
+            background-image: linear-gradient(180deg, rgba(var(--bg-rgb), 0.01), rgba(var(--bg-rgb), 1) 95%), radial-gradient(ellipse at top left, rgb(101, 94, 64, 0.3), transparent 30%), radial-gradient(ellipse at top right, rgb(231, 226, 219, 0.5), transparent 50%), radial-gradient(ellipse at center right, rgb(231, 226, 219, 0.5), transparent 50%), radial-gradient(ellipse at center left, rgb(225, 228, 218, 0.5), transparent 50%);
+        }
+
+        .huayhuay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background-image: url(image/watermark_transparent.png);
             background-size: contain;
             background-position: center;
             background-repeat: no-repeat;
+            z-index: -1;
         }
 
         .banner {
@@ -100,8 +111,8 @@
             }
         }
 
-        #hsyuenjyugongbau box {
-            background-color: none;
+        #hsyuenjyugongbau .box {
+            background-color: transparent;
         }
 
         #hsyuenjyugongbau img {
@@ -138,11 +149,23 @@
                 display: none;
             }
         }
+
+        .flex-dynamic-direction {
+            flex-direction: row;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .flex-dynamic-direction {
+                flex-direction: column;
+            }
+        }
     </style>
     <script src="js/brain.js"></script>
 </head>
 
 <body>
+    <div class="huayhuay"></div>
+
     <nav id="nav-placeholder">
         <div class="nav">
             <div class="overlay"></div>
@@ -159,93 +182,99 @@
         </div>
     </nav>
     <main>
-        <div class="main">
-            <section style="display: flex; flex-direction: column; min-height: 95dvh;">
-                <div style="margin: auto;">
-                    <div class="loader"></div>
-                </div>
-                <p class="text-centre" style="padding: 0 1em">This site is not big so you may be experiencing high network traffic if this thing is still spinning.</p>
-            </section>
-        </div>
-        <div id="hsyuenjyugongbau" class="container display-none">
-            <div class="alert alert-warning">
-                <div class="alert-icon"></div>
-                <p class="alert-message"><span class="label-zh">點擊下方投票鈕後將立即執行投票，不會二度確認、再無反悔機會，請仔細檢查！</span><span class="label-en">Once you click the Submit button below, your vote will be cast immediately. Make sure to double check.</span></p>
+        <div class="container">
+            <div class="main">
+                <section style="display: flex; flex-direction: column; min-height: 95dvh;">
+                    <div style="margin: auto;">
+                        <div class="loader"></div>
+                    </div>
+                    <p class="text-centre" style="padding: 0 1em">This site is not big so you may be experiencing high network traffic if this thing is still spinning.</p>
+                </section>
             </div>
-            <div class="box rounded bordered mar-b-1">
-                <div class="display-flex mar-b-05">
-                    <img src="image/candidate_one.jpg" class="rounded" draggable="false">
-                    <div class="description">
-                        <p class="smol-title mar-b-0"><span class="label-zh">號次<span class="hanLat">1</span></span><span class="label-en">First Candidate</span></p>
-                        <h2 class="mar-t-0">董侑宸、許靖筠</h2>
-                        <p>（一）延續系費一年兩次繳交</p>
-                        <p>（二）桌遊例會<span class="hanLat">×</span>制服日</p>
-                        <p>（三）表單回饋：活動檢討系統</p>
-                    </div>
+            <div id="hsyuenjyugongbau" class="display-none">
+                <div class="alert alert-warning">
+                    <div class="alert-icon"></div>
+                    <p class="alert-message"><span class="label-zh">點擊下方投票鈕後將立即執行投票，不會二度確認、再無反悔機會，請仔細檢查！</span><span class="label-en">Once you click the Submit button below, your vote will be cast immediately. Make sure to double check.</span></p>
                 </div>
-                <button id="buttonForFirst" class="btn btn-secondary btn-wide" onclick="votingFor(1)"><span class="label-zh">選擇<span class="hanLat">1</span>號</span><span class="label-en">Vote for No. 1</span></button>
-            </div>
-            <div class="box rounded bordered mar-b-3">
-                <div class="display-flex mar-b-05">
-                    <img src="image/candidate_two.jpg" class="rounded" draggable="false">
-                    <div class="description">
-                        <p class="smol-title mar-b-0"><span class="label-zh">號次<span class="hanLat">2</span></span><span class="label-en">Second Candidate</span></p>
-                        <h2 class="mar-t-0">蔡亞芝、林沛辰</h2>
-                        <p>（一）增加系費繳交福利</p>
-                        <p>（二）舉辦節日相關活動</p>
-                        <p>（三）打造英語系二手書交易管道</p>
+                <div class="box rounded bordered mar-b-1">
+                    <div class="display-flex mar-b-05 flex-dynamic-direction">
+                        <img src="image/candidate_one.jpg" class="rounded" draggable="false">
+                        <div class="description">
+                            <p class="smol-title mar-b-0"><span class="label-zh">號次<span class="hanLat">1</span></span><span class="label-en">First Candidate</span></p>
+                            <h2 class="mar-t-0">董侑宸、許靖筠</h2>
+                            <ol class="informal">
+                                <li>延續系費一年兩次繳交；</li>
+                                <li>桌遊例會<span class="hanLat">×</span>制服日；</li>
+                                <li>表單回饋：活動檢討系統。</li>
+                            </ol>
+                        </div>
                     </div>
+                    <button id="buttonForFirst" class="btn btn-secondary btn-wide" onclick="votingFor(1)"><span class="label-zh">選擇<span class="hanLat">1</span>號</span><span class="label-en">Vote for No. 1</span></button>
                 </div>
-                <button id="buttonForSecond" class="btn btn-secondary btn-wide" onclick="votingFor(2)"><span class="label-zh">選擇<span class="hanLat">2</span>號</span><span class="label-en">Vote for No. 2</span></button>
-            </div>
-            <form action="https://docs.google.com/forms/d/e/1FAIpQLSfwfB-7GxP5CRZhaH8iUjjgLwc_ibH36znIGK9pb5yEyFtK0g/formResponse" target="_self" id="bootstrapForm" method="POST">
-                <fieldset class="mar-b-1">
-                    <div class="form-group">
-                        <p class="smol-title mar-0"><span class="label-zh">學號</span><span class="label-en">Student ID</span></p>
-                        <input id="1227160475" type="text" name="entry.1227160475" class="form-control" required readonly>
+                <div class="box rounded bordered mar-b-3">
+                    <div class="display-flex mar-b-05 flex-dynamic-direction">
+                        <img src="image/candidate_two.jpg" class="rounded" draggable="false">
+                        <div class="description">
+                            <p class="smol-title mar-b-0"><span class="label-zh">號次<span class="hanLat">2</span></span><span class="label-en">Second Candidate</span></p>
+                            <h2 class="mar-t-0">蔡亞芝、林沛辰</h2>
+                            <ol class="informal">
+                                <li>增加系費繳交福利；</li>
+                                <li>舉辦節日相關活動；</li>
+                                <li>打造英語系二手書交易管道。</li>
+                            </ol>
+                        </div>
                     </div>
-                </fieldset>
-                <fieldset class="mar-b-1">
-                    <div class="form-group">
-                        <p class="smol-title mar-0"><span class="label-zh">投給</span><span class="label-en">Voted For</span></p>
-                        <input id="1551241513" type="text" name="entry.1551241513" class="form-control" required readonly>
-                    </div>
-                </fieldset>
+                    <button id="buttonForSecond" class="btn btn-secondary btn-wide" onclick="votingFor(2)"><span class="label-zh">選擇<span class="hanLat">2</span>號</span><span class="label-en">Vote for No. 2</span></button>
+                </div>
+                <form action="https://docs.google.com/forms/d/e/1FAIpQLSfwfB-7GxP5CRZhaH8iUjjgLwc_ibH36znIGK9pb5yEyFtK0g/formResponse" target="_self" id="bootstrapForm" method="POST">
+                    <fieldset class="mar-b-1">
+                        <div class="form-group">
+                            <p class="smol-title mar-0"><span class="label-zh">學號</span><span class="label-en">Student ID</span></p>
+                            <input id="1227160475" type="text" name="entry.1227160475" class="form-control" required readonly>
+                        </div>
+                    </fieldset>
+                    <fieldset class="mar-b-1">
+                        <div class="form-group">
+                            <p class="smol-title mar-0"><span class="label-zh">投給</span><span class="label-en">Voted For</span></p>
+                            <input id="1551241513" type="text" name="entry.1551241513" class="form-control" required readonly>
+                        </div>
+                    </fieldset>
 
-                <input type="hidden" name="fvv" value="1">
-                <input type="hidden" name="fbzx" value="8551694590991423098">
-                <input type="hidden" name="pageHistory" value="0">
-                <button id="submitBtn" class="btn btn-fill btn-danger btn-wide mar-t-1 mar-b-3" type="submit" disabled><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 130">
-                            <path fill="none" stroke="#fff" stroke-width="4.169" d="M-17.329 71.897a26.915 27.284 0 1 1-53.83 0 26.915 27.284 0 1 1 53.83 0z" transform="matrix(2.2425 0 0 2.2122 164.217 -94.05)" />
-                            <g fill="#fff">
-                                <path d="M60 2h10v126H60z" fill="#fff" />
-                                <path d="m67.071 67.071-7.07-7.07-44.549 44.547 7.071 7.07z" fill="#fff" />
-                            </g>
-                        </svg>
-                    </span><span class="label-zh">投票</span><span class="label-en">Submit</span></button>
-            </form>
-        </div>
-        <div id="votingSuccessScreen" class="display-none">
-            <div style="display: flex; flex-direction: column; min-height: 100dvh;">
-                <div class="text-centre" style="margin: auto;">
-                    <span class="twemoji" style="font-size: 10em;margin: 0;"><svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" id="Layer_1" version="1.1" viewBox="0 0 512 512">
-                            <style>
-                                .st1 {
-                                    fill: none;
-                                    stroke: #fff;
-                                    stroke-width: 30;
-                                    stroke-miterlimit: 10
-                                }
-                            </style>
-                            <path id="XMLID_3_" fill="#66bb6a" d="M489 255.9v-.7c0-1.6 0-3.2-.1-4.7 0-.9-.1-1.8-.1-2.8 0-.9-.1-1.8-.1-2.7-.1-1.1-.1-2.2-.2-3.3 0-.7-.1-1.4-.1-2.1l-.3-3.6c0-.5-.1-1.1-.1-1.6-.1-1.3-.3-2.6-.4-4 0-.3-.1-.7-.1-1C474.3 113.2 375.7 22.9 256 22.9S37.7 113.2 24.5 229.5c0 .3-.1.7-.1 1-.1 1.3-.3 2.6-.4 4-.1.5-.1 1.1-.1 1.6l-.3 3.6c0 .7-.1 1.4-.1 2.1-.1 1.1-.1 2.2-.2 3.3 0 .9-.1 1.8-.1 2.7 0 .9-.1 1.8-.1 2.8 0 1.6-.1 3.2-.1 4.7v1.6c0 1.6 0 3.2.1 4.7 0 .9.1 1.8.1 2.8 0 .9.1 1.8.1 2.7.1 1.1.1 2.2.2 3.3 0 .7.1 1.4.1 2.1l.3 3.6c0 .5.1 1.1.1 1.6.1 1.3.3 2.6.4 4 0 .3.1.7.1 1C37.7 398.8 136.3 489.1 256 489.1s218.3-90.3 231.5-206.5c0-.3.1-.7.1-1 .1-1.3.3-2.6.4-4 .1-.5.1-1.1.1-1.6l.3-3.6c0-.7.1-1.4.1-2.1.1-1.1.1-2.2.2-3.3 0-.9.1-1.8.1-2.7 0-.9.1-1.8.1-2.8 0-1.6.1-3.2.1-4.7v-.9c0 .1 0 .1 0 0z" />
-                            <g id="XMLID_1_">
-                                <path id="XMLID_2_" d="m213.6 344.2 156.1-156" class="st1" />
-                                <path id="XMLID_4_" d="m233.8 345.2-79.1-79.1" class="st1" />
-                            </g>
-                        </svg>
-                    </span>
-                    <h1><span class="label-zh">投票成功</span><span class="label-en">Successfully Cast!</span></h1>
-                    <p><span class="label-zh">歡迎說服更多人投票。惟依據祕密投票原則，請儘量勿張揚所投之候選人，謝謝配合。</span><span class="label-en">Feel free to encourage more people to vote, but please keep your vote private per secret ballot rules. Thank you.</span></p>
+                    <input type="hidden" name="fvv" value="1">
+                    <input type="hidden" name="fbzx" value="8551694590991423098">
+                    <input type="hidden" name="pageHistory" value="0">
+                    <button id="submitBtn" class="btn btn-fill btn-danger btn-wide mar-t-1 mar-b-3" type="submit" disabled><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 130">
+                                <path fill="none" stroke="#fff" stroke-width="4.169" d="M-17.329 71.897a26.915 27.284 0 1 1-53.83 0 26.915 27.284 0 1 1 53.83 0z" transform="matrix(2.2425 0 0 2.2122 164.217 -94.05)" />
+                                <g fill="#fff">
+                                    <path d="M60 2h10v126H60z" fill="#fff" />
+                                    <path d="m67.071 67.071-7.07-7.07-44.549 44.547 7.071 7.07z" fill="#fff" />
+                                </g>
+                            </svg>
+                        </span><span class="label-zh">投票</span><span class="label-en">Submit</span></button>
+                </form>
+            </div>
+            <div id="votingSuccessScreen" class="display-none">
+                <div style="display: flex; flex-direction: column; min-height: 100dvh;">
+                    <div class="text-centre" style="margin: auto;">
+                        <span class="twemoji" style="font-size: 10em;margin: 0;"><svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" id="Layer_1" version="1.1" viewBox="0 0 512 512">
+                                <style>
+                                    .st1 {
+                                        fill: none;
+                                        stroke: #fff;
+                                        stroke-width: 30;
+                                        stroke-miterlimit: 10
+                                    }
+                                </style>
+                                <path id="XMLID_3_" fill="#66bb6a" d="M489 255.9v-.7c0-1.6 0-3.2-.1-4.7 0-.9-.1-1.8-.1-2.8 0-.9-.1-1.8-.1-2.7-.1-1.1-.1-2.2-.2-3.3 0-.7-.1-1.4-.1-2.1l-.3-3.6c0-.5-.1-1.1-.1-1.6-.1-1.3-.3-2.6-.4-4 0-.3-.1-.7-.1-1C474.3 113.2 375.7 22.9 256 22.9S37.7 113.2 24.5 229.5c0 .3-.1.7-.1 1-.1 1.3-.3 2.6-.4 4-.1.5-.1 1.1-.1 1.6l-.3 3.6c0 .7-.1 1.4-.1 2.1-.1 1.1-.1 2.2-.2 3.3 0 .9-.1 1.8-.1 2.7 0 .9-.1 1.8-.1 2.8 0 1.6-.1 3.2-.1 4.7v1.6c0 1.6 0 3.2.1 4.7 0 .9.1 1.8.1 2.8 0 .9.1 1.8.1 2.7.1 1.1.1 2.2.2 3.3 0 .7.1 1.4.1 2.1l.3 3.6c0 .5.1 1.1.1 1.6.1 1.3.3 2.6.4 4 0 .3.1.7.1 1C37.7 398.8 136.3 489.1 256 489.1s218.3-90.3 231.5-206.5c0-.3.1-.7.1-1 .1-1.3.3-2.6.4-4 .1-.5.1-1.1.1-1.6l.3-3.6c0-.7.1-1.4.1-2.1.1-1.1.1-2.2.2-3.3 0-.9.1-1.8.1-2.7 0-.9.1-1.8.1-2.8 0-1.6.1-3.2.1-4.7v-.9c0 .1 0 .1 0 0z" />
+                                <g id="XMLID_1_">
+                                    <path id="XMLID_2_" d="m213.6 344.2 156.1-156" class="st1" />
+                                    <path id="XMLID_4_" d="m233.8 345.2-79.1-79.1" class="st1" />
+                                </g>
+                            </svg>
+                        </span>
+                        <h1><span class="label-zh">投票成功</span><span class="label-en">Successfully Cast!</span></h1>
+                        <p><span class="label-zh">歡迎說服更多人投票。惟依據祕密投票原則，請勿張揚所投之候選人，謝謝配合。</span><span class="label-en">Feel free to encourage more people to vote, but please keep your vote private per secret ballot rules. Thank you.</span></p>
+                    </div>
                 </div>
             </div>
         </div>

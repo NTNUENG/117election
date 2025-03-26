@@ -4,7 +4,7 @@ async function loadData(lang = "zh") {
 
     const inputValues = {};
     document.querySelectorAll("input").forEach(input => {
-        if (input.id.length > 0) inputValues[input.id] = input.value;
+        if (['studentId', 'password'].includes(input.id)) inputValues[input.id] = input.value;
     });
 
     const structure = await fetch("json/login/structure.json").then(res => res.json());
@@ -154,6 +154,11 @@ async function initialise() {
         const studentId = document.querySelector('#studentId').value;
         const formSudentId = document.getElementById('1227160475');
         formSudentId.value = studentId;
+
+        const formSelection = document.getElementById('1551241513');
+        formSelection.value = "";
+
+        document.getElementById('submitBtn').disabled = true;
 
         let jsonData = [];
 
