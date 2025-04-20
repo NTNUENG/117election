@@ -63,6 +63,31 @@
             background-position: center;
         }
 
+        input {
+            color: var(--color);
+        }
+
+        input:invalid {
+            border-color: var(--danger);
+        }
+
+        .login input,
+        form input {
+            padding: var(--gap-half);
+            width: 100%;
+            font-family: var(--mono-font);
+        }
+
+        .login .panel,
+        form {
+            margin: auto;
+            max-width: max(30dvw, 15em);
+        }
+
+        .btn {
+            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border 0.2s ease-in-out;
+        }
+
         .hanLat:empty {
             display: none;
         }
@@ -113,6 +138,18 @@
             margin: auto 0;
         }
 
+        main[data-lang="zh"] {
+            .label-en {
+                display: none;
+            }
+        }
+
+        main[data-lang="en"] {
+            .label-zh {
+                display: none;
+            }
+        }
+
         .flex-dynamic-direction {
             flex-direction: row;
         }
@@ -122,12 +159,8 @@
                 flex-direction: column;
             }
         }
-
-        #chart canvas {
-            margin: auto;
-        }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/brain.js"></script>
 </head>
 
 <body>
@@ -150,48 +183,97 @@
     </nav>
     <main>
         <div class="container">
-            <section id="chart" class="display-flex mar-b-2" style="position: relative; height:40dvh; width:100%; overflow-x: auto;">
-                <canvas id="myPieChart"></canvas>
-                <canvas id="votingRatePieChart"></canvas>
-                <canvas id="gradeVoteChart"></canvas>
-            </section>
-            <div id="hsyuenjyugongbau">
-                <div class="box bordered mar-b-1" style="border-radius: var(--gap);">
-                    <div class="display-flex flex-dynamic-direction">
+            <div class="main">
+                <section style="display: flex; flex-direction: column; min-height: 95dvh;">
+                    <div style="margin: auto;">
+                        <div class="loader"></div>
+                    </div>
+                    <p class="text-centre" style="padding: 0 1em">This site is not big so you may be experiencing high network traffic if this thing is still spinning.</p>
+                </section>
+            </div>
+            <div id="hsyuenjyugongbau" class="display-none">
+                <div class="alert alert-warning">
+                    <div class="alert-icon"></div>
+                    <p class="alert-message"><span class="label-zh">點擊下方投票鈕後將立即執行投票，不會二度確認、再無反悔機會，請仔細檢查！</span><span class="label-en">Once you click the Submit button below, your vote will be cast immediately. Make sure to double check.</span></p>
+                </div>
+                <div class="box rounded bordered mar-b-1">
+                    <div class="display-flex mar-b-05 flex-dynamic-direction">
                         <img src="image/candidate_one.jpg" class="rounded" draggable="false">
                         <div class="description">
-                            <p class="smol-title mar-b-0">號次<span class="hanLat">1</span></p>
+                            <p class="smol-title mar-b-0"><span class="label-zh">號次<span class="hanLat">1</span></span><span class="label-en">First Candidate</span></p>
                             <h2 class="mar-t-0">董侑宸、許靖筠</h2>
                             <ol class="informal">
                                 <li>延續系費一年兩次繳交；</li>
                                 <li>桌遊例會<span class="hanLat">×</span>制服日；</li>
                                 <li>表單回饋：活動檢討系統。</li>
                             </ol>
-                            <p class="display"><span class="hanLat hl-r">68</span>票</p>
                         </div>
                     </div>
+                    <button id="buttonForFirst" class="btn btn-secondary btn-wide" onclick="votingFor(1)"><span class="label-zh">選擇<span class="hanLat">1</span>號</span><span class="label-en">Vote for No. 1</span></button>
                 </div>
-                <div class="box bordered mar-b-3" style="border-radius: var(--gap); position: relative;">
-                    <span class="twemoji" style="position: absolute; right: 0; top: var(--gap); font-size: 3em;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 130">
-                            <path fill="none" stroke="var(--danger)" stroke-width="4.169" d="M-17.329 71.897a26.915 27.284 0 1 1-53.83 0 26.915 27.284 0 1 1 53.83 0z" transform="matrix(2.2425 0 0 2.2122 164.217 -94.05)" />
-                            <g fill="var(--danger)">
-                                <path d="M60 2h10v126H60z" fill="var(--danger)" />
-                                <path d="m67.071 67.071-7.07-7.07-44.549 44.547 7.071 7.07z" fill="var(--danger)" />
-                            </g>
-                        </svg>
-                    </span>
-                    <div class="display-flex flex-dynamic-direction">
+                <div class="box rounded bordered mar-b-3">
+                    <div class="display-flex mar-b-05 flex-dynamic-direction">
                         <img src="image/candidate_two.jpg" class="rounded" draggable="false">
                         <div class="description">
-                            <p class="smol-title mar-b-0">號次<span class="hanLat">2</span></p>
+                            <p class="smol-title mar-b-0"><span class="label-zh">號次<span class="hanLat">2</span></span><span class="label-en">Second Candidate</span></p>
                             <h2 class="mar-t-0">蔡亞芝、林沛辰</h2>
                             <ol class="informal">
                                 <li>增加系費繳交福利；</li>
                                 <li>舉辦節日相關活動；</li>
                                 <li>打造英語系二手書交易管道。</li>
                             </ol>
-                            <p class="display"><span class="hanLat hl-r">110</span>票</p>
                         </div>
+                    </div>
+                    <button id="buttonForSecond" class="btn btn-secondary btn-wide" onclick="votingFor(2)"><span class="label-zh">選擇<span class="hanLat">2</span>號</span><span class="label-en">Vote for No. 2</span></button>
+                </div>
+                <form action="https://docs.google.com/forms/d/e/1FAIpQLSfwfB-7GxP5CRZhaH8iUjjgLwc_ibH36znIGK9pb5yEyFtK0g/formResponse" target="_self" id="bootstrapForm" method="POST">
+                    <fieldset class="mar-b-1">
+                        <div class="form-group">
+                            <p class="smol-title mar-0"><span class="label-zh">學號</span><span class="label-en">Student ID</span></p>
+                            <input id="1227160475" type="text" name="entry.1227160475" class="form-control" required readonly>
+                        </div>
+                    </fieldset>
+                    <fieldset class="mar-b-1">
+                        <div class="form-group">
+                            <p class="smol-title mar-0"><span class="label-zh">投給</span><span class="label-en">Voted For</span></p>
+                            <input id="1551241513" type="text" name="entry.1551241513" class="form-control" required readonly>
+                        </div>
+                    </fieldset>
+
+                    <input type="hidden" name="fvv" value="1">
+                    <input type="hidden" name="fbzx" value="8551694590991423098">
+                    <input type="hidden" name="pageHistory" value="0">
+                    <button id="submitBtn" class="btn btn-fill btn-danger btn-wide mar-t-1 mar-b-3" type="submit" disabled><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 130">
+                                <path fill="none" stroke="#fff" stroke-width="4.169" d="M-17.329 71.897a26.915 27.284 0 1 1-53.83 0 26.915 27.284 0 1 1 53.83 0z" transform="matrix(2.2425 0 0 2.2122 164.217 -94.05)" />
+                                <g fill="#fff">
+                                    <path d="M60 2h10v126H60z" fill="#fff" />
+                                    <path d="m67.071 67.071-7.07-7.07-44.549 44.547 7.071 7.07z" fill="#fff" />
+                                </g>
+                            </svg>
+                        </span><span class="label-zh">投票</span><span class="label-en">Submit</span></button>
+                </form>
+            </div>
+            <div id="votingSuccessScreen" class="display-none">
+                <div style="display: flex; flex-direction: column; min-height: 100dvh;">
+                    <div class="text-centre" style="margin: auto;">
+                        <span class="twemoji" style="font-size: 10em;margin: 0;"><svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" id="Layer_1" version="1.1" viewBox="0 0 512 512">
+                                <style>
+                                    .st1 {
+                                        fill: none;
+                                        stroke: #fff;
+                                        stroke-width: 30;
+                                        stroke-miterlimit: 10
+                                    }
+                                </style>
+                                <path id="XMLID_3_" fill="#66bb6a" d="M489 255.9v-.7c0-1.6 0-3.2-.1-4.7 0-.9-.1-1.8-.1-2.8 0-.9-.1-1.8-.1-2.7-.1-1.1-.1-2.2-.2-3.3 0-.7-.1-1.4-.1-2.1l-.3-3.6c0-.5-.1-1.1-.1-1.6-.1-1.3-.3-2.6-.4-4 0-.3-.1-.7-.1-1C474.3 113.2 375.7 22.9 256 22.9S37.7 113.2 24.5 229.5c0 .3-.1.7-.1 1-.1 1.3-.3 2.6-.4 4-.1.5-.1 1.1-.1 1.6l-.3 3.6c0 .7-.1 1.4-.1 2.1-.1 1.1-.1 2.2-.2 3.3 0 .9-.1 1.8-.1 2.7 0 .9-.1 1.8-.1 2.8 0 1.6-.1 3.2-.1 4.7v1.6c0 1.6 0 3.2.1 4.7 0 .9.1 1.8.1 2.8 0 .9.1 1.8.1 2.7.1 1.1.1 2.2.2 3.3 0 .7.1 1.4.1 2.1l.3 3.6c0 .5.1 1.1.1 1.6.1 1.3.3 2.6.4 4 0 .3.1.7.1 1C37.7 398.8 136.3 489.1 256 489.1s218.3-90.3 231.5-206.5c0-.3.1-.7.1-1 .1-1.3.3-2.6.4-4 .1-.5.1-1.1.1-1.6l.3-3.6c0-.7.1-1.4.1-2.1.1-1.1.1-2.2.2-3.3 0-.9.1-1.8.1-2.7 0-.9.1-1.8.1-2.8 0-1.6.1-3.2.1-4.7v-.9c0 .1 0 .1 0 0z" />
+                                <g id="XMLID_1_">
+                                    <path id="XMLID_2_" d="m213.6 344.2 156.1-156" class="st1" />
+                                    <path id="XMLID_4_" d="m233.8 345.2-79.1-79.1" class="st1" />
+                                </g>
+                            </svg>
+                        </span>
+                        <h1><span class="label-zh">投票成功</span><span class="label-en">Successfully Cast!</span></h1>
+                        <p><span class="label-zh">歡迎說服更多人投票。惟依據祕密投票原則，請勿張揚所投之候選人，謝謝配合。</span><span class="label-en">Feel free to encourage more people to vote, but please keep your vote private per secret ballot rules. Thank you.</span></p>
                     </div>
                 </div>
             </div>
@@ -212,118 +294,43 @@
         </div>
     </footer>
     <script>
-        const ctx = document.getElementById('myPieChart').getContext('2d');
-
-        const config = {
-            type: 'doughnut',
-            data: {
-                labels: ['號次 1', '號次 2'],
-                datasets: [{
-                    label: '得票率',
-                    data: [68, 110]
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function (tooltipItem) {
-                                return ' ' + tooltipItem.raw + ' 票（' + (Math.round(tooltipItem.raw / 178 * 10000) / 100) + '%）';
-                            }
-                        }
-                    }
+        function showPassword() {
+            const inputPassword = document.querySelector('#password');
+            inputPassword.type = inputPassword.type === "password" ? "text" : "password";
+        }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js" integrity="sha256-2Pjr1OlpZMY6qesJM68t2v39t+lMLvxwpa8QlRjJroA=" crossorigin="anonymous"></script>
+    <script>
+        $('#bootstrapForm').submit(function (event) {
+            event.preventDefault()
+            var extraData = {}
+            $('#bootstrapForm').ajaxSubmit({
+                data: extraData,
+                dataType: 'jsonp',
+                error: function () {
+                    document.querySelector('#hsyuenjyugongbau').remove();
+                    document.querySelector('#votingSuccessScreen').classList.remove('display-none');
+                    $("html, body").animate({ scrollTop: 0 }, "slow");
                 }
-            }
-        };
+            })
+        })
+    </script>
+    <script>
+        const btn1 = document.querySelector('#buttonForFirst');
+        const btn2 = document.querySelector('#buttonForSecond');
+        const formSelection = document.getElementById('1551241513');
+        const submitBtn = document.getElementById('submitBtn');
 
-        new Chart(ctx, config);
+        function votingFor(index) {
+            const isFirst = index === 1;
 
-        const totalVotes = 342;
-        const voted = 178;
-        const ctx2 = document.getElementById('votingRatePieChart').getContext('2d');
+            btn1.classList.toggle('btn-fill', isFirst);
+            btn2.classList.toggle('btn-fill', !isFirst);
 
-        const config2 = {
-            type: 'doughnut',
-            data: {
-                labels: ['投票數', '未投票數'],
-                datasets: [{
-                    label: '投票率',
-                    data: [voted, totalVotes - voted],
-                    backgroundColor: ['#ff9800', '#9e9e9e'],
-                    hoverBackgroundColor: ['#f57c00', '#616161']
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function (tooltipItem) {
-                                return ' ' + tooltipItem.raw + ' 票（' + (tooltipItem.raw / 342).toFixed(2) + '%）';
-                            }
-                        }
-                    }
-                }
-            }
-        };
-
-        new Chart(ctx2, config2);
-
-        const ctx3 = document.getElementById('gradeVoteChart').getContext('2d');
-
-        const config3 = {
-            type: 'bar',
-            data: {
-                labels: ['114', '115', '116', '117'], // Year levels
-                datasets: [
-                    {
-                        label: '號次 1',
-                        data: [6 / (6 + 18) * 100, 12 / (12 + 30) * 100, 27 / (27 + 24) * 100, 22 / (22 + 35) * 100],
-                    },
-                    {
-                        label: '號次 2',
-                        data: [18 / (6 + 18) * 100, 30 / (12 + 30) * 100, 24 / (27 + 24) * 100, 35 / (22 + 35) * 100],
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    x: {
-                        stacked: true
-                    },
-                    y: {
-                        stacked: true,
-                        ticks: {
-                            beginAtZero: true,
-                            max: 100,
-                            stepSize: 20
-                        }
-                    }
-                },
-                plugins: {
-                    legend: {
-                        position: 'top'
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function (tooltipItem) {
-                                return tooltipItem.raw.toFixed(2) + '%';
-                            }
-                        }
-                    }
-                }
-            }
-        };
-
-        new Chart(ctx3, config3);
+            formSelection.value = index;
+            submitBtn.disabled = false;
+        }
     </script>
 </body>
 
