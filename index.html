@@ -266,7 +266,7 @@
                     tooltip: {
                         callbacks: {
                             label: function (tooltipItem) {
-                                return ' ' + tooltipItem.raw + ' 票（' + (tooltipItem.raw / 342).toFixed(2) + '%）';
+                                return ' ' + tooltipItem.raw + ' 票（' + (Math.round(tooltipItem.raw / 342 * 10000) / 100) + '%）';
                             }
                         }
                     }
